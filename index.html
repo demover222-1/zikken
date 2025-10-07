@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON表示</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+    #jsonDisplay {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 18px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="jsonDisplay">読み込み中...</div>
+
+  <script>
+    async function fetchJson() {
+      const url = "https://raw.githubusercontent.com/demover222-1/jsonyou/main/data.json"; // GitHub上のJSON
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("ネットワークエラー");
+        const data = await response.json();
+
+        // JSONデータを整形して表示
+        document.getElementById('jsonDisplay').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('jsonDisplay').textContent = "読み込み失敗: " + error;
+      }
+    }
+
+    fetchJson();
+  </script>
+</body>
+</html>
