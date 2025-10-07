@@ -28,22 +28,23 @@
   <div id="jsonDisplay">読み込み中...</div>
 
   <script>
-    async function fetchJson() {
-      const url = "https://raw.githubusercontent.com/demover222-1/jsonyou/main/data.json"; // GitHub上のJSON
-      try {
-        const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) throw new Error("ネットワークエラー");
-        const data = await response.json();
-
-        // JSONデータを整形して表示
-        document.getElementById('jsonDisplay').textContent = JSON.stringify(data, null, 2);
-      } catch (error) {
-        document.getElementById('jsonDisplay').textContent = "読み込み失敗: " + error;
-      }
+  async function fetchJson() {
+    const url = "https://raw.githubusercontent.com/demover222-1/jsonyou/main/data.json";
+    const cacheBuster = "?t=" + new Date().getTime(); // 現在時刻をクエリに追加
+    try {
+      const response = await fetch(url + cacheBuster);
+      if (!response.ok) throw new Error("ネットワークエラー");
+      const data = await response.json();
+      document.getElementById('jsonDisplay').textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+      document.getElementById('jsonDisplay').textContent = "読み込み失敗: " + error;
     }
+  }
+
 
     fetchJson();
   </script>
 </body>
 </html>
+
 
