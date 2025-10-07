@@ -31,7 +31,7 @@
     async function fetchJson() {
       const url = "https://raw.githubusercontent.com/demover222-1/jsonyou/main/data.json"; // GitHub上のJSON
       try {
-        const response = await fetch(url);
+        const response = await fetch(url, { cache: "no-store" });
         if (!response.ok) throw new Error("ネットワークエラー");
         const data = await response.json();
 
@@ -46,3 +46,4 @@
   </script>
 </body>
 </html>
+
